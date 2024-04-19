@@ -2,7 +2,23 @@ import { defineStore } from 'pinia';
 import { api } from '~/api';
 
 export const useFilmsStore = defineStore('films', () => {
-	const films = ref([]);
+	type Film = {
+		id: number;
+		name: string;
+		link_img: string;
+		ratingAvg: number;
+		duration: number;
+		categories: Category[];
+		description: string;
+	};
+
+	type Category = {
+		id: number;
+		name: string;
+	};
+
+	const films = ref<Film[]>([]);
+
 
 	async function fetchFilms() {
 		const response = await api.get('/films');

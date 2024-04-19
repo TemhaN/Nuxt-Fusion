@@ -1,3 +1,145 @@
+@import url("https://use.fontawesome.com/releases/v5.15.4/js/all.js");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {  
+	--black: #1F1F1F;
+  --cloud: #c7c7c780;
+  --eerie-black: #1e1e1e;
+  --mantis: #79bc6a;
+  --mine-shaft: #2f2f2f;
+  --neptune: #7bc6b6;
+  --picton-blue: #3dbfeb;
+	
+  --white: #ffffff;
+	--purple: #5A61CE;
+	--montserrat: "Montserrat", sans-serif;
+}
+
+
+
+body {
+	font-family: var(--montserrat);
+  overflow-x: hidden!important;
+}
+body::-webkit-scrollbar {
+	width: 13px;
+}
+body::-webkit-scrollbar-track {
+	background-color: white;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: rgba(150, 150, 150, 0.6);
+}
+
+.logo {
+	width: 65px;
+	transform: scale(1.08);
+	margin-left: -4px;
+}
+.settings {
+	font-size: 40px;
+	transform: scale(1.08);
+	margin-right: -35px!important;
+}
+.btn-login {
+	color: var(--white);
+	font-weight: 700;
+	border-radius: 40px;
+	margin: 0px 25px;
+	width: 160px;
+	height: 45px;
+	text-align: center;
+}
+.btn-login:hover {
+	color: var(--white);
+  background-color: var(--purple);
+}
+.btn-login:active {
+	color: var(--white);
+  background-color: var(--purple);
+}
+.btn-register {
+	color: var(--white);
+	font-weight: 700;
+	border-radius: 40px;
+	background-color: var(--purple);
+	margin: 0px 25px;
+	width: 160px;
+	height: 45px;
+	text-align: center;
+}
+.btn-register:hover {
+	color: var(--white);
+  background-color: var(--purple);
+}
+.btn-register:active {
+	color: var(--white);
+  background-color: var(--purple);
+}
 .content {
-	min-height: calc(20vh - 40px - 150px);
+	margin-top: 300px;
+	min-height: 80vh!important;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show:hover {
+	color: var(--white);
+}
+.navbar {
+	width: 90%;
+	margin-top: 1%!important;
+}
+.nav-link:hover {
+	color: var(--white);
+}
+.navbar-brand {
+	font-size: 1.7rem;
+	margin-left: 1.2rem;
+	color: var(--white);
+}
+.navbar-brand:hover {
+	color: var(--white);
+}
+.navbar-brand:active {
+	color: var(--white);
+}
+.navbar-brand:visited {
+	color: var(--white);
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+	color: var(--white);
+}
+.nav-link {
+	color: var(--white);
+	margin: 0 20px;
+	width: 160px;
+	text-align: center;
+}
+.nav-item {
+	margin: 0 10px;
+	width: 160px;
+}
+.line::after {
+  content: "";
+  border-left: 2px solid var(--white);
+  height: 50px;
+  margin-right: 10px;
+}
+.navbar-nav {
+	font-size: 1.2rem;
+	margin-left: 50px;
+}
+#nav_bar .active {
+  background-color: var(--purple);
+	border-radius: 40px;
+}
+.nav-link:visited {
+	color: var(--white);
+}
+.login-form button {
+	text-transform: uppercase;
+}
+.bg-body-tertiary {
+	backdrop-filter: blur(30px);
+	background-color: rgba(130, 130, 130, 0.6)!important;
+	border: 1.5px solid rgba(255, 255, 255, 0.06);
+	border-radius: 40px;
 }
