@@ -1,0 +1,3 @@
+.content {
+	min-height: calc(20vh - 40px - 150px);
+}
