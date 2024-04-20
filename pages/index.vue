@@ -17,6 +17,19 @@ watch(country, (newCountry) => {
 	filmsStore.addCountryToParams(newCountry);
 });
 
+const sortBy = ref('name');
+watch(sortBy, (newSortBy) => {
+	filmsStore.addSortToParams(newSortBy);
+})
+
+const resetParams = () => {
+	category.value = null;
+	country.value = null;
+	sortBy.value = 'name';
+
+	filmsStore.fetchFilms();
+}
+
 filmsStore.fetchFilms();
 </script>
 
@@ -49,18 +62,17 @@ filmsStore.fetchFilms();
 			</select>
 		</div>
 		<div class="col col-md-3">
-			<select class="form-select form-select-lg" aria-label=".form-select-lg example">
-				<option selected>Sort by...</option>
-				<option value="name">Name</option>
-				<option value="year">Year</option>
-				<option value="rating">Rating</option>
+			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="sortBy">
+				<option selected :value="name">Sort by... <p class="text-muted">Name</p></option>
+				<option value="year">Sort by... <p class="text-muted">Year</p></option>
+				<option value="rating">Sort by... <p class="text-muted">Rating</p></option>
 			</select>
 		</div>
 		<div class="col col-md-1">
-			<button class="btn btn-outline-warning">Reset</button>
+			<button class="btn btn-outline-warning" @click="resetParams">Reset</button>
 		</div>
 	</div>
-	<div class="row row-cols-1 row-cols-md-3 g-4">
+	<div class="row row-cols-1 row-cols-md-4 g-4">
 		<div class="col" v-for="film in filmsStore.films" :key="film.id">		
 			<div class="card-deck">
 				<a class="link-underline-opacity-0 link-underline" href="">
