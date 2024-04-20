@@ -40,15 +40,15 @@ filmsStore.fetchFilms();
 <template>
 	<div class="row my-4">
 		<div class="col col-md-4">
-			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="category">
-				<option selected :value="null">Open Genre</option>
-				<option 
-					v-for="category in categoriesStore.categories" 
-					:key="category.id" 
-					:value="category.id"
-					>{{ category.name }} ({{ category.filmCount }})
-				</option>
-			</select>
+<select multiple class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="category">
+  <option selected :value="null">Open Genre</option>
+  <option 
+    v-for="category in categoriesStore.categories" 
+    :key="category.id" 
+    :value="category.id"
+    >{{ category.name }} ({{ category.filmCount }})
+  </option>
+</select>
 		</div>
 		<div class="col col-md-4">
 			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="country">
@@ -98,14 +98,37 @@ filmsStore.fetchFilms();
 	
 	<nav class="my-4" aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
-			<li class="page-item disabled">
-				<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
 			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
+				<a 
+				class="page-link" 
+				:class="{'disabled': filmsStore.page-1 == 0}"
+				href="#" 
+				tabindex="-1" 
+				aria-disabled="true"
+				@click.prevent="filmsStore.changePage(filmsStore.page-1)">
+				Previous</a>
+			</li>	
+			<li 
+			class="page-item" 
+			v-for="page in Math.ceil(filmsStore.total/filmsStore.size)" 
+			:key="page">
+				<a 
+				class="page-link" 
+				:class="{'active': page == filmsStore.page}"
+				href="#" 
+				@click.prevent="filmsStore.changePage(page)">{{ page }}
+				</a>
+			</li>
+			<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li> -->
+			<li 
+			class="page-item">
+				<a 
+				class="page-link"
+				:class="{'disabled': filmsStore.page == Math.ceil(filmsStore.total/filmsStore.size)}"
+				href="#"
+				@click.prevent="filmsStore.changePage(filmsStore.page+1)"
+				>Next</a>
 			</li>
 		</ul>
 	</nav>
