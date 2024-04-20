@@ -19,15 +19,11 @@ export const useFilmsStore = defineStore('films', () => {
 
 	const films = ref<Film[]>([]);
 
-	const params = {};
+	const params: {category:number|null} = {category: null, };
 
 
 	function addCategoryToParams(category: number|null) {
-		if (category) {
-			params.category = category;
-		} else if ('category' in params) {
-			delete params.category;
-		}
+		params.category = category;
 		fetchFilms();
 	}
 
