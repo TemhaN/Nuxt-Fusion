@@ -1,9 +1,18 @@
 <script lang="ts" setup>
-	import { useFilmsStore } from '~/stores/useFilmsStore';
+import { useFilmsStore } from '~/stores/useFilmsStore';
+import { useCategoriesStore } from '~/stores/useCategoriesStore';
+import { useCountriesStore } from '~/stores/useCountriesStore';
 
-	const filmsStore = useFilmsStore();
+const filmsStore = useFilmsStore();
+const categoriesStore = useCategoriesStore();
+const countriesStore = useCountriesStore();
 
-	filmsStore.fetchFilms();
+const category = ref(null);
+watch(category, (newCategory) => {
+	filmsStore.addCategoryToParams(newCategory);
+});
+
+filmsStore.fetchFilms();
 </script>
 
 <style>
@@ -13,19 +22,25 @@
 <template>
 	<div class="row my-4">
 		<div class="col col-md-4">
-			<select class="form-select form-select-lg" aria-label=".form-select-lg example">
+			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="category">
 				<option selected>Open Genre</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
+				<option 
+					v-for="category in categoriesStore.categories" 
+					:key="category.id" 
+					:value="category.id"
+					>{{ category.name }} ({{ category.filmCount }})
+				</option>
 			</select>
 		</div>
 		<div class="col col-md-4">
 			<select class="form-select form-select-lg" aria-label=".form-select-lg example">
 				<option selected>Open Country</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
+				<option 
+					v-for="country in countriesStore.countries" 
+					:key="country.id" 
+					:value="country.id"
+					>{{ country.name }}
+				</option>
 			</select>
 		</div>
 		<div class="col col-md-3">
@@ -65,7 +80,7 @@
 		</div>
 	</div>
 	
-	<nav aria-label="Page navigation example">
+	<nav class="my-4" aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 			<li class="page-item disabled">
 				<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
