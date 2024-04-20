@@ -12,6 +12,11 @@ watch(category, (newCategory) => {
 	filmsStore.addCategoryToParams(newCategory);
 });
 
+const country = ref(null);
+watch(country, (newCountry) => {
+	filmsStore.addCountryToParams(newCountry);
+});
+
 filmsStore.fetchFilms();
 </script>
 
@@ -23,7 +28,7 @@ filmsStore.fetchFilms();
 	<div class="row my-4">
 		<div class="col col-md-4">
 			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="category">
-				<option selected>Open Genre</option>
+				<option selected :value="null">Open Genre</option>
 				<option 
 					v-for="category in categoriesStore.categories" 
 					:key="category.id" 
@@ -33,8 +38,8 @@ filmsStore.fetchFilms();
 			</select>
 		</div>
 		<div class="col col-md-4">
-			<select class="form-select form-select-lg" aria-label=".form-select-lg example">
-				<option selected>Open Country</option>
+			<select class="form-select form-select-lg" aria-label=".form-select-lg example" v-model="country">
+				<option selected :value="null">Open Country</option>
 				<option 
 					v-for="country in countriesStore.countries" 
 					:key="country.id" 
@@ -55,7 +60,6 @@ filmsStore.fetchFilms();
 			<button class="btn btn-outline-warning">Reset</button>
 		</div>
 	</div>
-	
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div class="col" v-for="film in filmsStore.films" :key="film.id">		
 			<div class="card-deck">

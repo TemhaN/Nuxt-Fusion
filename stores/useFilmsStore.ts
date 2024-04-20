@@ -19,14 +19,24 @@ export const useFilmsStore = defineStore('films', () => {
 
 	const films = ref<Film[]>([]);
 
-	const params: {category:number|null} = {category: null, };
+	const params: {
+		category: number | null,
+		country: number | null,
+	} = {
+		category: null,
+		country: null,
+	};
+ 
 
-
-	function addCategoryToParams(category: number|null) {
+	function addCategoryToParams(category: number | null) {
 		params.category = category;
 		fetchFilms();
 	}
 
+	function addCountryToParams(country: number | null) {
+		params.country = country;
+		fetchFilms();
+	}
 
 	async function fetchFilms() {
 		const response = await api.get('/films', {params});
@@ -39,5 +49,6 @@ export const useFilmsStore = defineStore('films', () => {
 		films,
 		fetchFilms,
 		addCategoryToParams,
-	}
+		addCountryToParams,
+	};
 })

@@ -11,7 +11,7 @@ export const useCountriesStore = defineStore('countries', () => {
 
 	}
 	fetchCountries();
-
+	
 	return {
 		countries
 	};

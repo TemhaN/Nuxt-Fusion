@@ -11,6 +11,7 @@ export const useCategoriesStore = defineStore('categories', () => {
 
 	}
 	fetchCategories();
+	
 	return {
 		categories
 	}
