@@ -13,11 +13,22 @@ const errorMsg = ref('');
 
 
 const register = async () => {
-	if (email.value && password.value) {
+	if (
+		username.value &&
+		email.value &&
+		password.value &&
+		birthday.value &&
+		gender.value
+	) {
 		try {
-			await authStore.register(email.value, password.value);
+			await authStore.register({
+				fio: username.value,
+				email: email.value,
+				password: password.value,
+				birthday: birthday.value,
+				gender_id: gender.value
+			});
       router.push('/');
-			await authStore.register(email.value, password.value)
 		} catch(error: any) {
 			errorMsg.value = error.message;
 		}

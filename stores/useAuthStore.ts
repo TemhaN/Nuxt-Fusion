@@ -15,6 +15,15 @@ export const UseAuthStore = defineStore('auth', () => {
 		}
 	}
 
+	async function register(dataRegister:any) {
+		try {
+			const res = await api.post('/register', dataRegister);
+			saveAuthData(res.data);
+		} catch (error: any) {
+			throw new Error(error.response.data.message);
+		}
+	}
+
 	async function logout() {
 		await api.post('/signout', null, {
 			headers: {
@@ -41,9 +50,10 @@ export const UseAuthStore = defineStore('auth', () => {
 		}
 	}
 	readAuthData();
-	
+
 	return {
 		authData,
+		register,
 		logout,
 		login,
 	}

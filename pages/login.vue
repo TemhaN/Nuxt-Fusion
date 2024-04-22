@@ -11,7 +11,6 @@ const login = async () => {
 		try {
 			await authStore.login(email.value, password.value);
       router.push('/');
-			await authStore.login(email.value, password.value)
 		} catch(error: any) {
 			errorMsg.value = error.message;
 		}
