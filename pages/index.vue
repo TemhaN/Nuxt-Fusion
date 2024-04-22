@@ -31,6 +31,27 @@ const resetParams = () => {
 }
 
 filmsStore.fetchFilms();
+
+
+function getPageLinks(currentPage: number, totalPages: number): number[] {
+  const MAX_VISIBLE_PAGES = 3;
+  const half = Math.floor(MAX_VISIBLE_PAGES / 2);
+
+  let startPage = Math.max(Math.min(currentPage - half, totalPages - MAX_VISIBLE_PAGES + 1), 1);
+  let endPage = Math.min(Math.max(currentPage + half, MAX_VISIBLE_PAGES), totalPages);
+
+  if (totalPages <= MAX_VISIBLE_PAGES) {
+    startPage = 1;
+    endPage = totalPages;
+  } else if (currentPage <= half + 1) {
+    endPage = Math.min(totalPages, MAX_VISIBLE_PAGES);
+  } else if (currentPage >= totalPages - half) {
+    startPage = Math.max(1, totalPages - MAX_VISIBLE_PAGES + 1);
+  }
+
+  return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+}
+
 </script>
 
 <style>
@@ -116,41 +137,38 @@ filmsStore.fetchFilms();
 		<nav class="my-4" aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
-					<a 
-					class="page-link" 
-					:class="{'disabled': filmsStore.page-1 == 0}"
-					href="#" 
-					tabindex="-1" 
-					aria-disabled="true"
-					@click.prevent="filmsStore.changePage(filmsStore.page-1)">
-					Previous</a>
-				</li>	
-				<li 
-				class="page-item" 
-				v-for="page in Math.ceil(filmsStore.total/filmsStore.size)" 
-				:key="page">
-					<a 
-					class="page-link" 
-					:class="{'active': page == filmsStore.page}"
-					href="#" 
-					@click.prevent="filmsStore.changePage(page)">{{ page }}
+					<a class="page-link"
+						:class="{'disabled': filmsStore.page - 1 == 0}"
+						href="#"
+						tabindex="-1"
+						aria-disabled="true"
+						@click.prevent="filmsStore.changePage(filmsStore.page - 1)">
+						Previous
 					</a>
 				</li>
-				<!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li> -->
-				<li 
-				class="page-item">
-					<a 
-					class="page-link"
-					:class="{'disabled': filmsStore.page == Math.ceil(filmsStore.total/filmsStore.size)}"
-					href="#"
-					@click.prevent="filmsStore.changePage(filmsStore.page+1)"
-					>Next</a>
+
+				<template v-for="page in getPageLinks(filmsStore.page, Math.ceil(filmsStore.total / filmsStore.size))" :key="page">
+					<li class="page-item">
+						<a class="page-link"
+							:class="{'active': page === filmsStore.page}"
+							href="#"
+							@click.prevent="filmsStore.changePage(page)">
+							{{ page }}
+						</a>
+					</li>
+				</template>
+
+				<li class="page-item">
+					<a class="page-link"
+						:class="{'disabled': filmsStore.page === Math.ceil(filmsStore.total / filmsStore.size)}"
+						href="#"
+						@click.prevent="filmsStore.changePage(filmsStore.page + 1)">
+						Next
+					</a>
 				</li>
 			</ul>
 		</nav>
 
-		
 	</template>
 
 </template>

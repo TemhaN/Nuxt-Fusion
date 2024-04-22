@@ -1,17 +1,23 @@
 <script lang="ts" setup>
+
+const gendersStore = useGendersStore();
+
 const authStore = UseAuthStore();
 const router = useRouter();
 const email = ref('');
 const password = ref('');
-
+const username = ref('');
+const birthday = ref('');
+const gender = ref(null);
 const errorMsg = ref('');
 
-const login = async () => {
+
+const register = async () => {
 	if (email.value && password.value) {
 		try {
-			await authStore.login(email.value, password.value);
+			await authStore.register(email.value, password.value);
       router.push('/');
-			await authStore.login(email.value, password.value)
+			await authStore.register(email.value, password.value)
 		} catch(error: any) {
 			errorMsg.value = error.message;
 		}
@@ -45,28 +51,46 @@ const login = async () => {
 									</div>
 								</div>
 
-								<form @submit.prevent="login">
-									<p>Please login to your account</p>
-									<div data-mdb-input-init class="form-outline mb-4">
+								<form @submit.prevent="register">
+									<p>Register for an Account</p>
+
+									<div data-mdb-input-init class="form-floating mb-4">
+										<input type="text" v-model="username" id="form2Example11" class="form-control"
+											placeholder="Username" />
+										<label class="form-label" for="form2Example11">Username</label>
+									</div>
+
+									<div data-mdb-input-init class="form-floating mb-4">
 										<input type="email" v-model="email" id="form2Example11" class="form-control"
 											placeholder="Email address" />
 										<label class="form-label" for="form2Example11">Email</label>
 									</div>
 
-									<div data-mdb-input-init class="form-outline mb-4">
+									<div data-mdb-input-init class="form-floating mb-4">
 										<input type="password" v-model="password" id="form2Example22" class="form-control" />
 										<label class="form-label" for="form2Example22">Password</label>
 									</div>
 
-									<div class="text-center pt-1 mb-5 pb-1 d-flex justify-content-center row">
-										<button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block gradient-custom-2 mb-3 w-50" type="submit" >Log
-											in</button>
-										<a class="text-muted" href="#!">Forgot password?</a>
+									<div data-mdb-input-init class="form-floating mb-4">
+										<input type="date" v-model="birthday" id="form2Example22" class="form-control" />
+										<label class="form-label" for="form2Example22">Birthday</label>
 									</div>
 
-									<div class="d-flex align-items-center justify-content-center pb-4">
-										<p class="mb-0 me-2">Don't have an account?</p>
-										<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger" @click="$router.push('/register')">Create new</button>
+									<div data-mdb-input-init class="form-floating mb-4">
+										<select type="date" v-model="gender" id="form2Example22" class="form-control">
+											<option selected :value="null">Select Gender...</option>
+											<option 
+												v-for="gender in gendersStore.genders" 
+												:key="gender.id" 
+												:value="gender.id"
+												>{{ gender.name }}
+											</option>
+										</select>
+										<label class="form-label" for="form2Example22">Gender</label>
+									</div>
+
+									<div class="text-center pt-1 mb-5 pb-1 d-flex justify-content-center row">
+										<button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block gradient-custom-2 mb-3 w-50" type="submit" >Register</button>
 									</div>
 
 								</form>

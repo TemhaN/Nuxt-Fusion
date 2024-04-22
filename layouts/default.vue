@@ -44,7 +44,7 @@ const authStore = UseAuthStore();
 					<div class="login-container">
 						<div class="d-flex gap-3 login-form" >
 							<button class="btn btn-login" type="submit" @click="$router.push('/login')">Login</button>
-							<button class="btn btn-register" type="submit">Register</button>
+							<button class="btn btn-register" type="submit" @click="$router.push('/register')">Register</button>
 						</div>
 					</div>
 				</template>

@@ -20,7 +20,7 @@ export const useFilmsStore = defineStore('films', () => {
 	const films = ref<Film[]>([]);
 	const page = ref(1);
 	const total = ref(0);
-	const size = 4;
+	const size = 12;
 	const isLoading = ref(false);
 
 	const params: {
