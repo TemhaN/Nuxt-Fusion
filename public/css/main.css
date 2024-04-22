@@ -10,6 +10,10 @@
   --neptune: #7bc6b6;
   --picton-blue: #3dbfeb;
 	
+	--hue: 223;
+	--bg: hsl(var(--hue),90%,95%);
+	--fg: hsl(var(--hue),90%,5%);
+	--trans-dur: 0.3s;
   --white: #ffffff;
 	--purple: #5A61CE;
 	--montserrat: "Montserrat", sans-serif;
@@ -30,7 +34,9 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
 	background-color: rgba(150, 150, 150, 0.6);
 }
-
+.user-name {
+	width: 200px!important;
+}
 .logo {
 	width: 65px;
 	transform: scale(1.08);
@@ -77,7 +83,7 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--purple);
 }
 .content {
-	margin-top: 300px;
+	margin-top: 7.5%;
 	min-height: 80vh!important;
 }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show:hover {
@@ -142,4 +148,74 @@ body::-webkit-scrollbar-thumb {
 	background-color: rgba(130, 130, 130, 0.6)!important;
 	border: 1.5px solid rgba(255, 255, 255, 0.06);
 	border-radius: 40px;
+}
+.gooey {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 142px;
+  height: 40px;
+  margin: -20px 0 0 -71px;
+  background: white;
+  filter: contrast(20);
+}
+.dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 12px;
+  left: 15px;
+  filter: blur(4px);
+  background: #000;
+  border-radius: 50%;
+  transform: translateX(0);
+  animation: dot 2.8s infinite;
+}
+.dots {
+  transform: translateX(0);
+  margin-top: 12px;
+  margin-left: 31px;
+  animation: dots 2.8s infinite;
+}
+.dots span {
+  display: block;
+  float: left;
+  width: 16px;
+  height: 16px;
+  margin-left: 16px;
+  filter: blur(4px);
+  background: #000;
+  border-radius: 50%;
+}
+@keyframes dot {
+  50% {
+    transform: translateX(96px);
+  }
+}
+@keyframes dots {
+  50% {
+    transform: translateX(-31px);
+  }
+} 
+.gradient-custom-2 {
+/* fallback for old browsers */
+	background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+	.gradient-form {
+	height: 100vh !important;
+	}
+}
+@media (min-width: 769px) {
+	.gradient-custom-2 {
+		border-top-right-radius: .3rem;
+		border-bottom-right-radius: .3rem;
+	}
 }

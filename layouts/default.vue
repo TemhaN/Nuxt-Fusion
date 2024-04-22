@@ -1,9 +1,16 @@
+<script lang="ts" setup>
+const authStore = UseAuthStore();
+
+</script>
+
+
+
 <template>
 <div class="">
 	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top m-sm-auto">
 		<div class="container-fluid">
 			<img class="logo" src="~/public/img/logo3.png" alt="Logo">
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="/">
 					Fusion
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +40,26 @@
 					</li>
 				</ul>
 				<span class="line"></span>
-				<form class="d-flex gap-3 login-form">
-					<button class="btn btn-login" type="submit">Login</button>
-					<button class="btn btn-register" type="submit">Register</button>
-				</form>
-				<a class="nav-link settings">
-					<i class="fa-solid fa-gear"></i>
-				</a>
+				<template v-if="!authStore.authData">
+					<div class="login-container">
+						<div class="d-flex gap-3 login-form" >
+							<button class="btn btn-login" type="submit" @click="$router.push('/login')">Login</button>
+							<button class="btn btn-register" type="submit">Register</button>
+						</div>
+					</div>
+				</template>
+				<template v-else>
+					<div class="login-container">
+						<div class="d-flex gap-3 login-form" >
+							<button class="btn btn-login" type="button" @click="authStore.logout()">Logout</button>
+							<a class="nav-link user-name my-2">{{ authStore.authData.fio }}</a>
+						</div>
+					</div>
+					<a class="nav-link settings">
+						<i class="fa-solid fa-gear"></i>
+					</a>
+				</template>
+				
 			</div>
 		</div>
 	</nav>
