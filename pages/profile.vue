@@ -50,6 +50,7 @@ const editProfile = async () => {
 					<div class="d-flex justify-content-center gap-5 mt-4">
 						<p class="mb-1">Count reviews: {{ profileStore.userData.reviewCount }}</p>
 						<p>Count scores: {{ profileStore.userData.ratingCount }}</p>
+						<p>Count you favorites: {{ profileStore.userData.favoriteCount }}</p>
 					</div>
 				</div>
 			</div>
@@ -64,6 +65,9 @@ const editProfile = async () => {
 				</li>
 				<li class=" nav-link tab-pane" role="presentation">
 					<button class="nav-link" id="scores-tab" data-bs-toggle="tab" data-bs-target="#scores-tab-pane" type="button" role="tab" aria-controls="scores-tab-pane" aria-selected="false">My scores</button>
+				</li>
+				<li class=" nav-link tab-pane" role="presentation">
+					<button class="nav-link" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites-tab-pane" type="button" role="tab" aria-controls="favorites-tab-pane" aria-selected="false">My Favorites</button>
 				</li>
 				<p class="nav-link icon-user-settings">
 					<i class="fa-solid fa-user-gear"></i>
@@ -189,7 +193,7 @@ const editProfile = async () => {
 				<div class="d-flex justify-content-evenly card" v-for="review in profileStore.reviewsData" :key="review.id">
 					<div class="d-flex">
 						<img class="img_icon_film card offset-1" :src="review.film.link_img" alt="ImageFilm">
-						<a href="">
+						<a :href="'/film/'+ review.film.id" class="favorite_text">
 							<h3 class="m-5 fw-bold">{{ review.film.name }}</h3>
 						</a>
 					</div>
@@ -213,7 +217,7 @@ const editProfile = async () => {
 			<div class="tab-pane fade" id="scores-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="3">
 				<div class="d-flex justify-content-evenly card" v-for="rating in profileStore.ratingsData" :key="rating.id">
 					<div class="d-flex">
-						<a href="">
+						<a :href="'/film/'+ rating.film.id" class="favorite_text">
 							<h3 class="m-5 fw-bold">{{ rating.film.name }}</h3>
 						</a>
 					</div>
@@ -222,6 +226,20 @@ const editProfile = async () => {
 							<div>Опубликовано: {{ (new Date(rating.created_at)).toLocaleDateString() }}</div>
 							<p class="my-2">Оценка: <span class="fw-bold">{{ rating.score }}</span></p>
 							<button class="btn btn-outline-danger" @click="profileStore.removeRatingsData(rating.id)">Remove</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="favorites-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="4">
+				<div class="d-flex justify-content-evenly card" v-for="favorite in profileStore.favoritesData" :key="favorite.id">
+					<div class="d-flex">
+						<a :href="'/film/'+ favorite.film.id" class="favorite_text">
+							<h3 class="m-5 fw-bold">{{ favorite.film.name }}</h3>
+						</a>
+					</div>
+					<div class="d-flex justify-content-end flex-column m-5">
+						<div class="d-flex flex-column">
+							<i class="fas fa-heart text-danger my-2" @click="profileStore.removeFavoritesData(favorite.id)"></i>
 						</div>
 					</div>
 				</div>

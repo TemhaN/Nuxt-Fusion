@@ -45,6 +45,22 @@ export const useDetailFilmStore = defineStore('detail', () => {
 	}
 
 
+		async function likeFilm(like: number) {
+			const res = await api.post(
+				`user/${authStore.authData.id}/favorites`,
+				{
+					film_id: film.value.id,
+					like
+				},
+				{
+					headers: {
+						Authorization: 'Bearer ' + authStore.authData.token,
+					},
+				}
+			);
+			fetchFilm(film.value.id);
+		}
+
 
 
 	return {
@@ -52,6 +68,7 @@ export const useDetailFilmStore = defineStore('detail', () => {
 		fetchFilm,
 		addReview,
 		addRating,
+		likeFilm,
 		reviews,
 		film,
 	};

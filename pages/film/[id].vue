@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+
+const profileStore = useProfileStore();
 const detailFilmStore = useDetailFilmStore();
 const route = useRoute();
 const authStore = useAuthStore();
@@ -33,6 +35,9 @@ const sendReview = () => {
 							<i class="fas fa-regular fa-star mx-3" style="background: linear-gradient(to right, #FFD700, #efa620); -webkit-background-clip: text; color: transparent;"></i>
 						</div>
 					</div>
+					
+					<i v-for="index in 1" :key="index" @click.prevent="detailFilmStore.likeFilm(index)" class="fa-regular fa-heart"></i>
+
 					<p class="font-weight-bold mt-5" style="font-size: 1.5rem; color:gray;">О фильме</p>
 					<div style="line-height: 20px">
 						<div class="row mt-3" style="width: 800px">

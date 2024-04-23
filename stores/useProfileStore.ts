@@ -6,6 +6,7 @@ export const useProfileStore = defineStore('profile', () => {
 	const userData = ref(null);
 	const reviewsData = ref([]);
 	const ratingsData = ref([]);
+	const favoritesData = ref([]);
 
 	const authStore = useAuthStore();
 
@@ -38,6 +39,15 @@ export const useProfileStore = defineStore('profile', () => {
 		 });
 		 ratingsData.value = res.data.ratings;
 	}
+
+		async function fetchFavoritesData() {
+			const res = await api.get(`/user/${authStore.authData.id}/favorites`, {
+				headers: {
+					Authorization: 'Bearer ' + authStore.authData.token,
+				},
+			});
+			favoritesData.value = res.data.favorites;
+		}
 	
 	async function updateProfile(fio: string, email: string, birthday: string, gender_id) {
 		const res = await api.put(`/user`, {
@@ -73,6 +83,16 @@ export const useProfileStore = defineStore('profile', () => {
 		await fetchUserData(authStore.authData.id);
 	}
 
+	async function removeFavoritesData(id: number) {
+		await api.delete(`/user/${authStore.authData.id}/favorite/${id}`, {
+			headers: {
+				Authorization: 'Bearer ' + authStore.authData.token,
+			},
+		});
+
+		await fetchUserData(authStore.authData.id);
+	}
+
 	async function removeUserData() {
 		
 		await api.delete('/user', {
@@ -87,16 +107,18 @@ export const useProfileStore = defineStore('profile', () => {
 	}
 
 
+	fetchFavoritesData();
 	fetchReviewsData();
 	fetchRatingsData();
 
-
 	return {
+		removeFavoritesData,
 		removeReviewsData,
 		removeRatingsData,
 		removeUserData,
 		fetchUserData,
 		updateProfile,
+		favoritesData,
 		ratingsData,
 		reviewsData,
 		userData,

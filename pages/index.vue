@@ -3,6 +3,7 @@ import { useFilmsStore } from '~/stores/useFilmsStore';
 import { useCategoriesStore } from '~/stores/useCategoriesStore';
 import { useCountriesStore } from '~/stores/useCountriesStore';
 
+const detailFilmStore = useDetailFilmStore();
 const filmsStore = useFilmsStore();
 const categoriesStore = useCategoriesStore();
 const countriesStore = useCountriesStore();
@@ -139,8 +140,14 @@ function getPageLinks(currentPage: number, totalPages: number): number[] {
 							</div> -->
 						</div>
           </div>
-					<div class="card-footer d-flex flex-column align-items-end mt-auto justify-content-end">
-							<button @click="$router.push('/film/'+film.id)" class="btn btn-outline-primary">Смотреть</button>
+					<div class="card-footer d-flex mt-auto justify-content-between" >
+
+            <i v-for="index in 1" :key="index"
+                class="fas fa-heart text-danger"
+                @click.prevent="detailFilmStore.likeFilm(film.id)"
+            ></i>
+
+						<button @click="$router.push('/film/'+film.id)" class="btn btn-outline-primary">Смотреть</button>
 					</div>
         </div>
 			</div>
