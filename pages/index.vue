@@ -51,7 +51,6 @@ function getPageLinks(currentPage: number, totalPages: number): number[] {
 
   return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 }
-
 </script>
 
 <style>
@@ -109,27 +108,37 @@ function getPageLinks(currentPage: number, totalPages: number): number[] {
 
 	<template v-else>
 
-		<div class="row row-cols-1 row-cols-md-4 g-4">
+		<div class="row row-cols-md-4 g-4">
 			<div class="col" v-for="film in filmsStore.films" :key="film.id">		
-				<div class="card-deck">
-					<a class="link-underline-opacity-0 link-underline" href="">
-						<div class="card">
-							<img class="card-img-top" :src="film.link_img" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">{{ film.name }}</h5>
-								<p class="text-muted">{{ film.ratingAvg }} Оценка</p>
-								<p class="text-muted">{{ film.duration }} мин.</p>
-								<p v-if="film.categories.length != 0">
-									<template v-for="(genre, index) in film.categories" :key="genre.id">
-										{{ (index != film.categories.length - 1) ? genre.name+', ' : genre.name }}
-									</template>
-								</p>
-								<p class="text-muted" v-else>Нет жанров</p>
-								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							</div>
-						</div>
-					</a>
-				</div>
+        <div class="card card-film" style="width: 17rem; min-height:670px; max-height: 670px; max-width:100%;">
+          <div class="card-head">
+            <div class="overlay" :style="{ backgroundImage: `url(${film.link_img})` }"></div>
+            <a href="">
+              <div class="card-image-container">
+                <img :src="film.link_img" alt="Film" class="card-img-top rounded mr-3 card-image" style="object-fit: cover;">
+              </div>
+            </a>
+          </div>
+          <div class="card-body">
+              <h3 class="dropdown-item-title">
+                <div class="d-flex flex-col w-auto">
+                  <a href="">{{ film.name }}</a>
+                  <p class="ml-2">{{ film.age }}+</p>
+                </div>
+                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                </h3>
+                <p class="text-sm">{{ film.ratingAvg }} Оценка</p>
+                <p class="text-sm">{{ film.duration }} мин.</p>
+          </div>
+          <!-- <div class="card-footer d-flex flex-column align-items-end mt-auto justify-content-end">
+              <a href="{{ route('films.edit',$film->id ) }}" class="btn btn-success button-save">Изменить</a>
+              <form action="{{ route('films.destroy', $film->id) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger mt-3 mb-2 button-close">Удалить</button>
+              </form>
+          </div> -->
+        </div>
 			</div>
 		</div>
 
@@ -172,4 +181,3 @@ function getPageLinks(currentPage: number, totalPages: number): number[] {
 	</template>
 
 </template>
-

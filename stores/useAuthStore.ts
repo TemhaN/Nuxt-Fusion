@@ -27,7 +27,7 @@ export const UseAuthStore = defineStore('auth', () => {
 	async function logout() {
 		await api.post('/signout', null, {
 			headers: {
-				'Authorization':'Bearer ' + authData.value!.token,
+				'Authorization':'Bearer ' + authData.value.token,
 			}
 		});
 		removeAuthData();

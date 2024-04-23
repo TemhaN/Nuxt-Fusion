@@ -51,11 +51,11 @@ const authStore = UseAuthStore();
 				<template v-else>
 					<div class="login-container">
 						<div class="d-flex gap-3 login-form" >
-							<button class="btn btn-login" type="button" @click="authStore.logout()">Logout</button>
-							<a class="nav-link user-name my-2">{{ authStore.authData.fio }}</a>
+							<button class="btn btn-login" type="button" @click="authStore.logout(), $router.push('/')">Logout</button>
+							<a href="#" @click="$router.push('/profile')" class="nav-link user-name my-2">{{ authStore.authData.fio }}</a>
 						</div>
 					</div>
-					<a class="nav-link settings">
+					<a href="#" @click="$router.push('/profile')" class="nav-link settings">
 						<i class="fa-solid fa-gear"></i>
 					</a>
 				</template>

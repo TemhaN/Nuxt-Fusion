@@ -36,6 +36,8 @@ body::-webkit-scrollbar-thumb {
 }
 .user-name {
 	width: 200px!important;
+	font-size: 1.4rem!important;
+	font-weight: 500!important;
 }
 .logo {
 	width: 65px;
@@ -46,6 +48,10 @@ body::-webkit-scrollbar-thumb {
 	font-size: 40px;
 	transform: scale(1.08);
 	margin-right: -35px!important;
+}
+.icon-user-settings{
+	font-size: 40px;
+	transform: scale(0.75);
 }
 .btn-login {
 	color: var(--white);
@@ -82,6 +88,63 @@ body::-webkit-scrollbar-thumb {
 	color: var(--white);
   background-color: var(--purple);
 }
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.overlay {
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 57.5%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(23px);
+  transform: scale(0.8);
+  opacity: 0;
+  border-radius: 25px;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+.card-image {
+  z-index: 2;
+  border-radius: 25px;
+  transition: transform 0.4s ease;
+}
+.card-title {
+  padding-top: 10px;
+  color: black;
+  font-size:large;
+}
+.card {
+  margin-top: 30px;
+  border-radius: 25px;
+  background-color: white;
+  box-shadow: 0 13px 27px -5px rgba(50,50,93,0.25), 0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
+}
+.card-text {
+  color: gray;
+}
+.card-film {
+  background-color: rgba(0,0,0,0.8)!important;
+}
+.nav-user {
+  background-color: rgba(0,0,0,0.2)!important;
+	border-radius: 20px;
+}
+.profile-tab {
+	margin-top: 50px;
+}
+.img_icon_film {
+	width: 200px;
+}
+/* .active {
+  background-color: var(--purple)!important;
+	width: 200px!important;
+	border-radius: 50px!important;
+} */
 .content {
 	margin-top: 7.5%;
 	min-height: 80vh!important;
@@ -98,6 +161,7 @@ body::-webkit-scrollbar-thumb {
 }
 .navbar-brand {
 	font-size: 1.7rem;
+	font-weight: 700;
 	margin-left: 1.2rem;
 	color: var(--white);
 }
