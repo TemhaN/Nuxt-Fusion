@@ -136,6 +136,18 @@ body::-webkit-scrollbar-thumb {
 	font-size: xx-large;
 	cursor: pointer;
 }
+
+.img-actor {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	object-fit: cover;
+}
+.actor-name {
+	font-weight: 500;
+	font-size: 0.85rem;
+
+}
 .card-text {
   color: gray;
 }
@@ -167,6 +179,9 @@ body::-webkit-scrollbar-thumb {
 .content {
 	margin-top: 7.5%;
 	min-height: 80vh!important;
+}
+.register-form {
+	margin-top: 7rem;
 }
 .card-review {
 	box-shadow: none!important;
