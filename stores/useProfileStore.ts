@@ -83,13 +83,14 @@ export const useProfileStore = defineStore('profile', () => {
 		await fetchUserData(authStore.authData.id);
 	}
 
+	
 	async function removeFavoritesData(id: number) {
 		await api.delete(`/user/${authStore.authData.id}/favorite/${id}`, {
 			headers: {
 				Authorization: 'Bearer ' + authStore.authData.token,
 			},
 		});
-
+		
 		await fetchUserData(authStore.authData.id);
 	}
 
@@ -102,7 +103,6 @@ export const useProfileStore = defineStore('profile', () => {
 		});
 
 		await authStore.removeAuthData();
-
 		await fetchUserData(authStore.authData.id);
 	}
 

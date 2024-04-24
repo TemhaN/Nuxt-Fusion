@@ -84,14 +84,14 @@ export const useFilmsStore = defineStore('films', () => {
 	
 
 	return {
-		films,
-		fetchFilms,
 		addCategoryToParams,
 		addCountryToParams,
 		addSortToParams,
 		changePage,
+		fetchFilms,
 		isLoading,
 		total,
+		films,
 		size,
 		page,
 	};

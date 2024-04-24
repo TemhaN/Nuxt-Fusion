@@ -2,10 +2,12 @@
 
 const profileStore = useProfileStore();
 const detailFilmStore = useDetailFilmStore();
+const likesStore = useLikesStore();
 const route = useRoute();
 const authStore = useAuthStore();
 const message = ref('');
 const hoverRating = ref(0);
+
 
 detailFilmStore.fetchFilm(route.params.id);
 detailFilmStore.fetchReviews(route.params.id);
@@ -146,6 +148,12 @@ const sendReview = () => {
 								<h5 class="card-title">{{ review.user.fio }}</h5>
 								<h6 class="card-subtitle mb-2 text-muted">{{ (new Date(review.created_at)).toLocaleDateString() }}</h6>
 								<p class="card-text">{{ review.message }}</p>
+								<div class="d-flex">
+
+									<i style="cursor: pointer;" class="fa-solid fa-thumbs-up" v-for="index in 1" :key="index" @click.prevent="likesStore.addLikes(index, review.id,)"></i>
+									<p class="mx-2">{{ detailFilmStore.fetchLikes(review.id)}}</p>
+									<p>{{ detailFilmStore.likes.likesCount }}</p>
+								</div>
 							</div>
 						</div>
 					</div>

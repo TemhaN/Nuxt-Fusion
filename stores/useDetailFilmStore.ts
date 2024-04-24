@@ -5,6 +5,7 @@ export const useDetailFilmStore = defineStore('detail', () => {
 	const film = ref(null);
 	const reviews = ref([]);
 	const actors = ref([]);
+	const likes = ref([]);
 	const authStore = useAuthStore();
 
 	async function fetchFilm(id: number) {
@@ -23,6 +24,13 @@ export const useDetailFilmStore = defineStore('detail', () => {
 		const res = await api.get(`/film/${id}/actors`);
 
 		actors.value = res.data.actors;
+	}
+	
+	async function fetchLikes(id: number) {
+		const response = await api.get(`/review/${id}/likes`);
+		likes.value = response.data;
+
+		fetchReviews(film.value.id);
 	}
 	
 	async function addReview(filmId: number, message: string) {
@@ -90,6 +98,7 @@ export const useDetailFilmStore = defineStore('detail', () => {
 		likeFilmList,
 		fetchReviews,
 		fetchActors,
+		fetchLikes,
 		fetchFilm,
 		addReview,
 		addRating,
