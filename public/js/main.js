@@ -23,3 +23,7 @@ window.onload = function () {
 		});
 	});
 };
+
+// document.querySelectorAll('.categories-text').forEach(function (el) {
+// 	el.innerHTML = el.innerHTML.split('', 2).join('').padEnd(5, '.');
+// });

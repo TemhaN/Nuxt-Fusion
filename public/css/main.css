@@ -92,6 +92,8 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   overflow: hidden;
   border-radius: 25px;
+	width: 100%;
+	height: 400px;
 }
 .overlay {
   overflow: visible;
@@ -112,6 +114,8 @@ body::-webkit-scrollbar-thumb {
   z-index: 2;
   border-radius: 25px;
   transition: transform 0.4s ease;
+	width: 100%;
+	height: 400px;
 }
 .card-title {
   padding-top: 10px;
@@ -127,9 +131,6 @@ body::-webkit-scrollbar-thumb {
 .card-text {
   color: gray;
 }
-.card-film {
-  background-color: rgba(0,0,0,0.8)!important;
-}
 .nav-user {
   background-color: rgba(0,0,0,0.2)!important;
 	border-radius: 20px;
@@ -140,11 +141,21 @@ body::-webkit-scrollbar-thumb {
 .img_icon_film {
 	width: 200px;
 }
-/* .active {
-  background-color: var(--purple)!important;
-	width: 200px!important;
-	border-radius: 50px!important;
-} */
+.filmname a {
+	color: black;
+	text-decoration: none;
+	font-size: 1rem;
+}
+.filmage {
+	margin-left: 54px;
+}
+.film-name a {
+	color: black;
+	text-decoration: none;
+}
+.table td {
+	padding: 1rem;
+}
 .content {
 	margin-top: 7.5%;
 	min-height: 80vh!important;

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const authStore = UseAuthStore();
+const authStore = useAuthStore();
 const router = useRouter();
 const email = ref('');
 const password = ref('');

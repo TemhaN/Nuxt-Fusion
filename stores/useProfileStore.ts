@@ -6,7 +6,7 @@ export const useProfileStore = defineStore('profile', () => {
 	const reviewsData = ref([]);
 	const ratingsData = ref([]);
 
-	const authStore = UseAuthStore();
+	const authStore = useAuthStore();
 
 	async function fecthUserData(id: number) {
 

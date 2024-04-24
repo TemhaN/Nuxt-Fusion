@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { api } from '~/api';
 
-export const UseAuthStore = defineStore('auth', () => {
+export const useAuthStore = defineStore('auth', () => {
 	const authData = ref(null);
 	const authCookie = useCookie('authData');
 

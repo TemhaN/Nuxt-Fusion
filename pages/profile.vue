@@ -73,7 +73,7 @@ const profileStore = useProfileStore();
 								<h6 class="mb-0">Birthday</h6>
 							</div>
 							<div class="col-sm-9 text-secondary">
-								{{ profileStore.userData.birthday }}
+								{{ (new Date(profileStore.userData.birthday)).toLocaleDateString()  }}
 							</div>
 						</div>
 						<hr>
@@ -96,13 +96,15 @@ const profileStore = useProfileStore();
 				</div>
 			</div>
 			<div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel" aria-labelledby="reviews-tab" tabindex="2" >
-				<div class="d-flex" v-for="review in profileStore.reviewsData" :key="review.id">
-					<div class="row my-5">
-						<div class="col-8">
-							<img class="img_icon_film" :src="review.film.link_img" alt="ImageFilm">
-							<h5>{{ review.film.name }}</h5>
-						</div>
-						<div class="col-2" 
+				<div class="d-flex justify-content-evenly card" v-for="review in profileStore.reviewsData" :key="review.id">
+					<div class="d-flex">
+						<img class="img_icon_film card offset-1" :src="review.film.link_img" alt="ImageFilm">
+						<a href="">
+							<h3 class="m-5 fw-bold">{{ review.film.name }}</h3>
+						</a>
+					</div>
+					<div class="d-flex justify-content-end flex-column m-5">
+						<div class="d-flex justify-content-end"
 						:class="{
 							'text-success':review.is_approved, 
 							'text-danger':!review.is_approved}">
@@ -110,34 +112,29 @@ const profileStore = useProfileStore();
 						'isApproved' : 
 						'На рассмотрении' }}
 						</div>
-						<div class="col-2">{{ review.created_at }}</div>
-					</div>
-					<div class="row offset-2">
-						<div class="col-10">
-							<p class="fw-bold">{{ review.message }}</p>
-						</div>
-						<div class="col-2">
+						<div class="d-flex flex-column">
+							<div>Опубликовано: {{ (new Date(review.created_at)).toLocaleDateString() }}</div>
+							<p class="fw-bold my-2">{{ review.message }}</p>
 							<button class="btn btn-outline-danger">Remove</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="scores-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="3"><div>
-				<div class="row my-5">
-					<!-- <div class="col-8"><img :src="film.link_img" alt=""></div> -->
-					<div class="col-10"><h5>Duna</h5></div>
-					<div class="col-2 d-flex justify-content-end">25.05.2009</div>
-				</div>
-				<div class="row right offset-2">
-					<hr class="mt-2">
-					<div class="col-10">
-						<p class="fw-bold">5</p>
+			<div class="tab-pane fade" id="scores-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="3">
+				<div class="d-flex justify-content-evenly card" v-for="rating in profileStore.ratingsData" :key="rating.id">
+					<div class="d-flex">
+						<a href="">
+							<h3 class="m-5 fw-bold">{{ rating.film.name }}</h3>
+						</a>
 					</div>
-					<div class="col-2">
-						<button class="btn btn-outline-danger">Remove</button>
+					<div class="d-flex justify-content-end flex-column m-5">
+						<div class="d-flex flex-column">
+							<div>Опубликовано: {{ (new Date(rating.created_at)).toLocaleDateString() }}</div>
+							<p class="my-2">Оценка: <span class="fw-bold">{{ rating.score }}</span></p>
+							<button class="btn btn-outline-danger">Remove</button>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 	</template>
