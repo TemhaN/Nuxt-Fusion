@@ -6,7 +6,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 const email = ref('');
 const password = ref('');
-const username = ref('');
+const fio = ref('');
 const birthday = ref('');
 const gender = ref(null);
 const errorMsg = ref('');
@@ -14,7 +14,7 @@ const errorMsg = ref('');
 
 const register = async () => {
 	if (
-		username.value &&
+		fio.value &&
 		email.value &&
 		password.value &&
 		birthday.value &&
@@ -22,7 +22,7 @@ const register = async () => {
 	) {
 		try {
 			await authStore.register({
-				fio: username.value,
+				fio: fio.value,
 				email: email.value,
 				password: password.value,
 				birthday: birthday.value,
@@ -66,7 +66,7 @@ const register = async () => {
 									<p>Register for an Account</p>
 
 									<div data-mdb-input-init class="form-floating mb-4">
-										<input type="text" v-model="username" id="form2Example11" class="form-control"
+										<input type="text" v-model="fio" id="form2Example11" class="form-control"
 											placeholder="Username" />
 										<label class="form-label" for="form2Example11">Username</label>
 									</div>

@@ -4,6 +4,7 @@ import { api } from '~/api';
 export const useDetailFilmStore = defineStore('detail', () => {
 	const film = ref(null);
 	const reviews = ref([]);
+	const authStore = useAuthStore();
 
 	async function fetchFilm(id: number) {
 		const res = await api.get('/film/' + id);
@@ -24,17 +25,33 @@ export const useDetailFilmStore = defineStore('detail', () => {
 			},
 			{
 				headers: {
-					Authorization: 'Bearer ' + authStore.authData.token,
+					'Authorization': 'Bearer ' + authStore.authData.token,
 				},
 			}
 		);
-		fetchReviews(film);
+		fetchReviews(film.value.id);
 	}
-	
+
+	async function addRating(ball:number) {
+			const res = await api.post(`user/${authStore.authData.id}/ratings`, {
+				film_id: film.value.id,
+				ball
+			}, {
+				headers: {
+					'Authorization' : 'Bearer ' + authStore.authData.token,
+				}
+			});
+			fetchFilm(film.value.id);
+	}
+
+
+
+
 	return {
 		fetchReviews,
 		fetchFilm,
 		addReview,
+		addRating,
 		reviews,
 		film,
 	};

@@ -1,7 +1,31 @@
 <script lang="ts" setup>
 
 const profileStore = useProfileStore();
+const gendersStore = useGendersStore();
+const authStore = useAuthStore();
+const fio = ref();
+const email = ref();
+const birthday = ref();
+const gender = ref();
 
+const profileLoad = async () => {
+	await profileStore.fetchUserData(authStore.authData.id);
+	fio.value = profileStore.userData.fio;
+	email.value = profileStore.userData.email;
+	birthday.value = profileStore.userData.birthday;
+	gender.value = profileStore.userData.gender;
+			
+}
+
+profileLoad();
+
+const editProfile = async () => {
+	if (fio.value && email.value && birthday.value && gender.value) {
+		await profileStore.updateProfile(fio.value, email.value, birthday.value, gender.value);
+		profileLoad();
+	}
+
+}
 
 </script>
 
@@ -88,8 +112,74 @@ const profileStore = useProfileStore();
 						<hr>
 						<div class="row mt-5">
 							<div class="col-sm-12 d-flex gap-3">
-								<a class="btn btn-info" target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-								<a class="btn btn-danger" target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Delete</a>
+								<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Edit</button>
+								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<form>
+													<div class="mb-3">
+														<label for="name" class="col-form-label">Username:</label>
+														<input type="text" v-model="fio" class="form-control" id="name">
+													</div>
+													<div class="mb-3">
+														<label for="email" class="col-form-label">Email:</label>
+														<input type="text" v-model="email" class="form-control" id="email">
+													</div>
+													<!-- <div class="mb-3">
+														<label for="password" v-model="password" class="col-form-label">Password:</label>
+														<input type="text" :value="profileStore.userData.password" class="form-control" id="password">
+													</div> -->
+													<div class="mb-3">
+														<label for="birthday" class="col-form-label">Birthday:</label>
+														<input type="date" v-model="birthday" class="form-control" id="birthday">
+													</div>
+													<div class="mb-3">
+														<label for="gender" class="col-form-label">Gender:</label>
+														<select id="form2Example22" class="form-control" v-model="gender">
+															<option selected :value="null">Select Gender...</option>
+															<option 
+																v-for="gender in gendersStore.genders" 
+																:key="gender.id" 
+																:value="gender.id"
+																:selected="gender_id == gender"
+																>{{ gender.name }}
+															</option>
+														</select>
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary" @click="editProfile">Submit</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
+
+								<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="confirmDeleteModalLabel">Подтверждение удаления</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<p>Вы действительно хотите удалить свой аккаунт?</p>
+												<p>Это действие нельзя отменить.</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+												<button type="button" class="btn btn-danger" id="deleteButton" @click="profileStore.removeUserData()">Удалить</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -115,7 +205,7 @@ const profileStore = useProfileStore();
 						<div class="d-flex flex-column">
 							<div>Опубликовано: {{ (new Date(review.created_at)).toLocaleDateString() }}</div>
 							<p class="fw-bold my-2">{{ review.message }}</p>
-							<button class="btn btn-outline-danger">Remove</button>
+							<button class="btn btn-outline-danger" @click="profileStore.removeReviewsData(review.id)">Remove</button>
 						</div>
 					</div>
 				</div>
@@ -131,7 +221,7 @@ const profileStore = useProfileStore();
 						<div class="d-flex flex-column">
 							<div>Опубликовано: {{ (new Date(rating.created_at)).toLocaleDateString() }}</div>
 							<p class="my-2">Оценка: <span class="fw-bold">{{ rating.score }}</span></p>
-							<button class="btn btn-outline-danger">Remove</button>
+							<button class="btn btn-outline-danger" @click="profileStore.removeRatingsData(rating.id)">Remove</button>
 						</div>
 					</div>
 				</div>
@@ -151,6 +241,7 @@ const profileStore = useProfileStore();
 			</div>
 		</div>
 	</template>
+
 </template>
 
 

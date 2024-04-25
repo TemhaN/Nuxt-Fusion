@@ -122,21 +122,21 @@ function getPageLinks(currentPage: number, totalPages: number): number[] {
           <div class="card-body card-film">
 						<h3 class="dropdown-item-title d-flex justify-content-between">
 							<div class="d-flex filmname w-75">
-								<a style="cursor: pointer;" @click="$router.push('/film/'+film.id)">{{ film.name }}</a>
+								<a class="fw-bold" style="cursor: pointer;" @click="$router.push('/film/'+film.id)">{{ film.name }}</a>
 							</div>
 							<p>{{ film.age }}+</p>
 						</h3>
 						<div class="d-flex flex-column justify-content-end">
 							<p class="text-sm">Оценка: {{ film.ratingAvg }}</p>
 							<p class="text-sm">{{ film.duration }} мин.</p>
-							<div class="categories-text">
+							<!-- <div class="categories-text">
 								<p v-if="film.categories.length != 0">
 									<template v-for="(genre, index) in film.categories" :key="genre.id">
 										{{ (index != film.categories.length - 1) ? genre.name+', ' : genre.name }}
 									</template>
 								</p>
 								<p class="text-muted" v-else>Нет жанров</p>
-							</div>
+							</div> -->
 						</div>
           </div>
 					<div class="card-footer d-flex flex-column align-items-end mt-auto justify-content-end">

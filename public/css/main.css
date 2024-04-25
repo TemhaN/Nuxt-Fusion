@@ -160,6 +160,10 @@ body::-webkit-scrollbar-thumb {
 	margin-top: 7.5%;
 	min-height: 80vh!important;
 }
+.card-review {
+	box-shadow: none!important;
+	border-radius: 15px;
+}
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show:hover {
 	color: var(--white);
 }

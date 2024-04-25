@@ -49,9 +49,11 @@ export const useAuthStore = defineStore('auth', () => {
 			authData.value = JSON.parse(atob(authCookie.value));
 		}
 	}
+	
 	readAuthData();
 
 	return {
+		removeAuthData,
 		authData,
 		register,
 		logout,
