@@ -34,6 +34,7 @@ const register = async () => {
 		}
 	}
 }
+
 </script>
 
 <style>
@@ -41,6 +42,7 @@ const register = async () => {
 </style>
 
 <template>
+
 	<div class="container register-form">
 		<div class="row d-flex justify-content-center align-items-center h-100">
 			<div class="col-xl-10">
@@ -121,4 +123,5 @@ const register = async () => {
 			</div>
 		</div>
 	</div>
+	
 </template>

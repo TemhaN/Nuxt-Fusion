@@ -5,7 +5,7 @@ export const useDetailFilmStore = defineStore('detail', () => {
 	const film = ref(null);
 	const reviews = ref([]);
 	const actors = ref([]);
-	const likes = ref([]);
+
 	const authStore = useAuthStore();
 
 	async function fetchFilm(id: number) {
@@ -26,10 +26,42 @@ export const useDetailFilmStore = defineStore('detail', () => {
 		actors.value = res.data.actors;
 	}
 	
-	async function fetchLikes(id: number) {
-		const response = await api.get(`/review/${id}/likes`);
-		likes.value = response.data;
+	// async function fetchLikes(id: number) {
+	// 	const response = await api.get(`/review/${id}/likes`);
+	// 	likes.value = response.data;
 
+	// 	fetchReviews(film.value.id);
+	// }
+	
+	async function addLikes(review_id: number, like: number) {
+		const res = await api.post(
+			`user/${authStore.authData.id}/review`,
+			{
+				review_id: review_id,
+				like,
+			},
+			{
+				headers: {
+					Authorization: 'Bearer ' + authStore.authData.token,
+				},
+			}
+		);
+		fetchReviews(film.value.id);
+	}
+	
+	async function addDislikes(review_id: number) {
+		const res = await api.post(
+			`user/${authStore.authData.id}/review`,
+			{
+				review_id: review_id,
+				like: 0,
+			},
+			{
+				headers: {
+					Authorization: 'Bearer ' + authStore.authData.token,
+				},
+			}
+		);
 		fetchReviews(film.value.id);
 	}
 	
@@ -48,7 +80,8 @@ export const useDetailFilmStore = defineStore('detail', () => {
 	}
 
 	async function addRating(ball:number) {
-			const res = await api.post(`user/${authStore.authData.id}/ratings`, {
+		const res = await api.post(`user/${authStore.authData.id}/ratings`,
+			{
 				film_id: film.value.id,
 				ball
 			}, {
@@ -60,49 +93,16 @@ export const useDetailFilmStore = defineStore('detail', () => {
 	}
 
 
-		async function likeFilm(like: number) {
-			const res = await api.post(
-				`user/${authStore.authData.id}/favorites`,
-				{
-					film_id: film.value.id,
-					like
-				},
-				{
-					headers: {
-						Authorization: 'Bearer ' + authStore.authData.token,
-					},
-				}
-			);
-			fetchFilm(film.value.id);
-	}
-	
-		async function likeFilmList(film_id:string, like: number) {
-				const res = await api.post(
-					`user/${authStore.authData.id}/favorites`,
-					{
-						film_id,
-						like,
-					},
-					{
-						headers: {
-							Authorization: 'Bearer ' + authStore.authData.token,
-						},
-					}
-				);
-				fetchFilm(film.value.id);
-		}
-
 
 
 	return {
-		likeFilmList,
 		fetchReviews,
 		fetchActors,
-		fetchLikes,
+		addDislikes,
 		fetchFilm,
 		addReview,
 		addRating,
-		likeFilm,
+		addLikes,
 		reviews,
 		actors,
 		film,

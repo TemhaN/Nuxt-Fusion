@@ -52,7 +52,7 @@ const authStore = useAuthStore();
 					<template v-else>
 						<div class="login-container">
 							<div class="d-flex gap-3 login-form" >
-								<button class="btn btn-login" type="button" @click="authStore.logout(), $router.push('/')">Logout</button>
+								<button class="btn btn-login" type="button" @click="authStore.logout(), $router.push('/')">Выйти</button>
 								<a href="#" @click="$router.push('/profile')" class="nav-link user-name my-2">{{ authStore.authData.fio }}</a>
 							</div>
 						</div>
@@ -68,12 +68,12 @@ const authStore = useAuthStore();
 
 	<slot />
 
-	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 footer">
 		<div class="col-md-4 d-flex align-items-center">
 			<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
 				<svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
 			</a>
-			<span class="mb-3 mb-md-0 text-body-secondary">© 2024 Fusion, Inc</span>
+			<span class="mb-3 mb-md-0 text-body-secondary footer-text">© 2024 Fusion, Inc</span>
 		</div>
 	</footer>
 		

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+
 const authStore = useAuthStore();
 const router = useRouter();
 const email = ref('');
@@ -16,6 +17,7 @@ const login = async () => {
 		}
 	}
 }
+
 </script>
 
 <style>
@@ -86,4 +88,5 @@ const login = async () => {
 			</div>
 		</div>
 	</div>
+	
 </template>

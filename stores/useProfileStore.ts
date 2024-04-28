@@ -7,7 +7,7 @@ export const useProfileStore = defineStore('profile', () => {
 	const reviewsData = ref([]);
 	const ratingsData = ref([]);
 	const favoritesData = ref([]);
-
+	
 	const authStore = useAuthStore();
 
 	async function fetchUserData(id: number) {
@@ -47,7 +47,24 @@ export const useProfileStore = defineStore('profile', () => {
 				},
 			});
 			favoritesData.value = res.data.favorites;
-		}
+	}
+	
+
+
+	async function likeFilm(film_id: number) {
+		const res = await api.post(
+			`user/${authStore.authData.id}/favorites`,
+			{
+				film_id,
+			},
+			{
+				headers: {
+					Authorization: 'Bearer ' + authStore.authData.token,
+				},
+			}
+		);
+		fetchFavoritesData();
+	}
 	
 	async function updateProfile(fio: string, email: string, birthday: string, gender_id) {
 		const res = await api.put(`/user`, {
@@ -69,7 +86,7 @@ export const useProfileStore = defineStore('profile', () => {
 				Authorization: 'Bearer ' + authStore.authData.token,
 			},
 		});
-
+		await fetchUserData(authStore.authData.id);
 		await fetchReviewsData();
 	}
 
@@ -79,8 +96,8 @@ export const useProfileStore = defineStore('profile', () => {
 				Authorization: 'Bearer ' + authStore.authData.token,
 			},
 		});
-
 		await fetchUserData(authStore.authData.id);
+		await fetchRatingsData();
 	}
 
 	
@@ -90,8 +107,8 @@ export const useProfileStore = defineStore('profile', () => {
 				Authorization: 'Bearer ' + authStore.authData.token,
 			},
 		});
-		
 		await fetchUserData(authStore.authData.id);
+		await fetchFavoritesData();
 	}
 
 	async function removeUserData() {
@@ -111,6 +128,7 @@ export const useProfileStore = defineStore('profile', () => {
 	fetchReviewsData();
 	fetchRatingsData();
 
+
 	return {
 		removeFavoritesData,
 		removeReviewsData,
@@ -122,5 +140,6 @@ export const useProfileStore = defineStore('profile', () => {
 		ratingsData,
 		reviewsData,
 		userData,
+		likeFilm,
 	};
 });

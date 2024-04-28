@@ -39,19 +39,29 @@ export const useFilmsStore = defineStore('films', () => {
 		page: page.value,
 		size
 	};
+	
+    const selectedCategoryIds = ref([]);
 
-	function addCategoryToParams (category: number[] | null) {
-		if (category) {
-			page.value = 1;
-			params.page = 1;
-			params.category = category.join('%');
-		} else {
-			page.value = 1;
-			params.page = 1;
-			params.category = null;
+		function toggleCategorySelection(categoryId, index) {
+			if (selectedCategoryIds.value.includes(categoryId)) {
+				selectedCategoryIds.value = selectedCategoryIds.value.filter(
+					id => id !== categoryId
+				);
+			} else {
+				selectedCategoryIds.value.push(categoryId);
+			}
+			addCategoryToParams(selectedCategoryIds.value);
 		}
-		fetchFilms();
-	}
+
+		function addCategoryToParams(categoryIds) {
+			if (categoryIds.length === 0) {
+				params.category = null;
+			} else {
+				params.category = categoryIds.join('%');
+			}
+			fetchFilms();
+		}
+
 
 
 	function addCountryToParams (country: number | null) {
@@ -84,6 +94,8 @@ export const useFilmsStore = defineStore('films', () => {
 	
 
 	return {
+		toggleCategorySelection,
+		selectedCategoryIds,
 		addCategoryToParams,
 		addCountryToParams,
 		addSortToParams,

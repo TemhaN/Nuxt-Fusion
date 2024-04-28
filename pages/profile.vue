@@ -45,14 +45,14 @@ const editProfile = async () => {
 				<div class="d-flex flex-column align-items-center text-center">
 					<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
 					<div class="mt-3">
-						<h4>{{ profileStore.userData.fio }}</h4>
+						<h4 class="user-name-profile">{{ profileStore.userData.fio }}</h4>
 						<p class="text-secondary mb-1">Full Stack Developer</p>
-						<p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+						<p class="font-size-sm user-country-profile">Bay Area, San Francisco, CA</p>
 						<div class="d-flex justify-content-center gap-3">
-							<button class="btn btn-outline-primary">Follow</button>
-							<button class="btn btn-outline-primary">Message</button>
+							<button class="user-profile-buttons">Follow</button>
+						  <button class="user-profile-buttons">Message</button>
 						</div>
-						<div class="d-flex justify-content-center gap-5 mt-4">
+						<div class="d-flex justify-content-center gap-5 mt-4 user-statistics">
 							<p class="mb-1">Count reviews: {{ profileStore.userData.reviewCount }}</p>
 							<p>Count scores: {{ profileStore.userData.ratingCount }}</p>
 							<p>Count you favorites: {{ profileStore.userData.favoriteCount }}</p>
@@ -85,7 +85,7 @@ const editProfile = async () => {
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Full Name</h6>
+									<h6 class="mb-0 text-info-user">Full Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									{{ profileStore.userData.fio }}
@@ -94,7 +94,7 @@ const editProfile = async () => {
 							<hr>
 							<div class="row">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Email</h6>
+									<h6 class="mb-0 text-info-user">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									{{ profileStore.userData.email }}
@@ -103,7 +103,7 @@ const editProfile = async () => {
 							<hr>
 							<div class="row">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Birthday</h6>
+									<h6 class="mb-0 text-info-user">Birthday</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									{{ (new Date(profileStore.userData.birthday)).toLocaleDateString()  }}
@@ -112,7 +112,7 @@ const editProfile = async () => {
 							<hr>
 							<div class="row">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Gender</h6>
+									<h6 class="mb-0 text-info-user">Gender</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									{{ profileStore.userData.gender.name }}
@@ -121,12 +121,13 @@ const editProfile = async () => {
 							<hr>
 							<div class="row mt-5">
 								<div class="col-sm-12 d-flex gap-3">
-									<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Edit</button>
+									<button type="button" class="btn-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Edit</button>
+									
 									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">Edit profile</h1>
+													<h1 class="modal-title fs-5" id="exampleModalLabel">Изменить профиль</h1>
 													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
@@ -163,13 +164,13 @@ const editProfile = async () => {
 													</form>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary" @click="editProfile">Submit</button>
+													<button type="button" class="btn-delete" data-bs-dismiss="modal">Закрыть</button>
+													<button type="button" class="btn-edit" @click="editProfile">Подвердить</button>
 												</div>
 											</div>
 										</div>
 									</div>
-									<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
+									<button type="button" class="btn-delete" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
 
 									<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
@@ -228,7 +229,6 @@ const editProfile = async () => {
 						</div>
 						<div class="d-flex justify-content-end flex-column m-5">
 							<div class="d-flex flex-column">
-								<div>Опубликовано: {{ (new Date(rating.created_at)).toLocaleDateString() }}</div>
 								<p class="my-2">Оценка: <span class="fw-bold">{{ rating.score }}</span></p>
 								<button class="btn btn-outline-danger" @click="profileStore.removeRatingsData(rating.id)">Remove</button>
 							</div>
@@ -244,7 +244,7 @@ const editProfile = async () => {
 						</div>
 						<div class="d-flex justify-content-end flex-column m-5">
 							<div class="d-flex flex-column">
-								<i class="fas fa-heart text-danger my-2" @click="profileStore.removeFavoritesData(favorite.id)"></i>
+								<i class="fas fa-heart text-danger my-2" @click="profileStore.removeFavoritesData(favorite.film.id)"></i>
 							</div>
 						</div>
 					</div>
