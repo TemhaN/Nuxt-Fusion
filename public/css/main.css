@@ -907,3 +907,6 @@ body::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
 }
+.register-please-text {
+  color: var(--white)!important;
+}

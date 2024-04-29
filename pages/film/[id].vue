@@ -135,7 +135,7 @@ const sendReview = () => {
 				</div>
 			</div>
 			<div class="row mt-5" v-else>
-				<p class="text-center">
+				<p class="text-center register-please-text">
 					Do add comment please to <a style="cursor: pointer;" class="fw-semibold" @click="$router.push('/login')">Login</a> or <a style="cursor: pointer;"  class="fw-semibold" @click="$router.push('/register')">Register</a>
 				</p>
 			</div>
